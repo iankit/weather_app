@@ -8,6 +8,14 @@ import java.util.TimeZone;
  * Created by Zion on 22/08/15.
  */
 public class CurrentWeather {
+    private String mIcon;
+    private long mTime;
+    private double mTemperature;
+    private double mHumidity;
+    private double mPrecipValue;
+    private String mSummery;
+    private String mTimeZone;
+
     public String getIcon() {
         return mIcon;
     }
@@ -20,59 +28,49 @@ public class CurrentWeather {
         return mTime;
     }
 
-    public int getIconId(){
+    public void setTime(long time) {
+        mTime = time;
+    }
+
+    public int getIconId() {
         int iconId = R.drawable.clear_day;
+
 //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
-        if (mIcon.equals("clear-day")){
+
+        if (mIcon.equals("clear-day")) {
             iconId = R.drawable.clear_day;
-        }
-        else if (mIcon.equals("clear-night")){
+        } else if (mIcon.equals("clear-night")) {
             iconId = R.drawable.clear_night;
-        }
-        else if (mIcon.equals("rain")){
+        } else if (mIcon.equals("rain")) {
             iconId = R.drawable.rain;
-        }
-        else if (mIcon.equals("snow")){
+        } else if (mIcon.equals("snow")) {
             iconId = R.drawable.snow;
-        }
-        else if (mIcon.equals("sleet")){
+        } else if (mIcon.equals("sleet")) {
             iconId = R.drawable.sleet;
-        }
-        else if (mIcon.equals("wind")){
+        } else if (mIcon.equals("wind")) {
             iconId = R.drawable.wind;
-        }
-        else if (mIcon.equals("fog")){
+        } else if (mIcon.equals("fog")) {
             iconId = R.drawable.fog;
-        }
-        else if (mIcon.equals("cloudy")){
+        } else if (mIcon.equals("cloudy")) {
             iconId = R.drawable.cloudy;
-        }
-        else if (mIcon.equals("partly-cloudy-day")){
+        } else if (mIcon.equals("partly-cloudy-day")) {
             iconId = R.drawable.partly_cloudy;
-        }
-        else if (mIcon.equals("partly-cloudy-night")){
+        } else if (mIcon.equals("partly-cloudy-night")) {
             iconId = R.drawable.cloudy_night;
         }
         return iconId;
     }
 
-
-
-
-    public String getFormattedTime(){
+    public String getFormattedTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
         formatter.setTimeZone(TimeZone.getTimeZone(getTimeZone()));
         Date dateTime = new Date(getTime() * 1000);
-        String timeString = formatter.format( dateTime);
+        String timeString = formatter.format(dateTime);
         return timeString;
     }
 
-    public void setTime(long time) {
-        mTime = time;
-    }
-
-    public double getTemperature() {
-        return mTemperature;
+    public int getTemperature() {
+        return (int) Math.round(mTemperature);
     }
 
     public void setTemperature(double temperature) {
@@ -87,12 +85,14 @@ public class CurrentWeather {
         mHumidity = humidity;
     }
 
-    public double getPrecipChance() {
-        return mPrecipChance;
+    public int getPrecipValue() {
+
+        double precipPercentage = mPrecipValue * 100;
+        return (int) Math.round(precipPercentage);
     }
 
-    public void setPrecipChance(double precipChance) {
-        mPrecipChance = precipChance;
+    public void setPrecipValue(double precipValue) {
+        mPrecipValue = precipValue;
     }
 
     public String getSummery() {
@@ -102,14 +102,6 @@ public class CurrentWeather {
     public void setSummery(String summery) {
         mSummery = summery;
     }
-
-    private String mIcon;
-    private long mTime;
-    private double mTemperature;
-    private double mHumidity;
-    private double mPrecipChance;
-    private String mSummery;
-    private String mTimeZone;
 
     public String getTimeZone() {
         return mTimeZone;
