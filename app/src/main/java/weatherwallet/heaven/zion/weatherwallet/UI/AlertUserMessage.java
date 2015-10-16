@@ -1,10 +1,12 @@
-package weatherwallet.heaven.zion.weatherwallet;
+package weatherwallet.heaven.zion.weatherwallet.UI;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
+
+import weatherwallet.heaven.zion.weatherwallet.R;
 
 /**
  * Created by Zion on 22/08/15.

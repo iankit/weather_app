@@ -1,13 +1,15 @@
-package weatherwallet.heaven.zion.weatherwallet;
+package weatherwallet.heaven.zion.weatherwallet.Weather;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import weatherwallet.heaven.zion.weatherwallet.R;
+
 /**
  * Created by Zion on 22/08/15.
  */
-public class CurrentWeather {
+public class Current {
     private String mIcon;
     private long mTime;
     private double mTemperature;

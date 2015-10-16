@@ -1,7 +1,9 @@
-package weatherwallet.heaven.zion.weatherwallet;
+package weatherwallet.heaven.zion.weatherwallet.UI;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -27,12 +29,15 @@ import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import weatherwallet.heaven.zion.weatherwallet.R;
+import weatherwallet.heaven.zion.weatherwallet.Weather.Current;
+import weatherwallet.heaven.zion.weatherwallet.Weather.Forcast;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private CurrentWeather mCurrentWeather;
+    private Forcast mForcast;
 
     @Bind(R.id.timeLabel)
     TextView mTimeLabel;
@@ -51,10 +56,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.iconImageView)
     ImageView mIconImageView;
-    @Bind(R.id.refreshImageView) ImageView mRefreshImageView;
+
+    @Bind(R.id.refreshImageView)
+    ImageView mRefreshImageView;
+
     @Bind(R.id.progressBar)
     ProgressBar mProgressBar;
 
+    double latitude;
+    double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,28 +73,36 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mProgressBar.setVisibility(View.INVISIBLE);
-        final double latitude = 37.8267;
-        final double longitude = -122.423;
+
+
+        LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+
         mRefreshImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getForcast(latitude,longitude);
+                getForcast(latitude, longitude);
             }
         });
 
-        getForcast(latitude,longitude);
+        getForcast(latitude, longitude);
 
         Log.d(TAG, "The Main UI code is runing!");
 
     }
 
-    private void getForcast(double latitude , double longitude) {
+    private void getForcast(double latitude, double longitude) {
         String apiKEY = "82eb05ec4250bdb76e1c94e9de47a522";
 
         if (isNetworkAvailable()) {
             togglrRefresh();
             String forcastURL = "https://api.forecast.io/forecast/"
-                    + apiKEY + "/" + latitude + "," + longitude;
+                    + apiKEY + "/" + latitude + "," + longitude + "?units=si";
 
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -115,13 +133,13 @@ public class MainActivity extends AppCompatActivity {
                         String jasonData = response.body().string();
                         Log.v(TAG, jasonData);
                         if (response.isSuccessful()) {
-                            mCurrentWeather = getCurrentDetsils(jasonData);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        updateDisplay();
-                                    }
-                                });
+                            mForcast = forcastDetails(jasonData);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateDisplay();
+                                }
+                            });
                         } else {
                             alertUserAboutError();
                         }
@@ -139,42 +157,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void togglrRefresh() {
-        if(mProgressBar.getVisibility()==View.INVISIBLE){
-        mProgressBar.setVisibility(View.VISIBLE);
-        mRefreshImageView.setVisibility(View.INVISIBLE);
-    }
-    else {
+        if (mProgressBar.getVisibility() == View.INVISIBLE) {
+            mProgressBar.setVisibility(View.VISIBLE);
+            mRefreshImageView.setVisibility(View.INVISIBLE);
+        } else {
             mProgressBar.setVisibility(View.INVISIBLE);
             mRefreshImageView.setVisibility(View.VISIBLE);
         }
     }
 
     private void updateDisplay() {
-        mTemperatureLabel.setText(mCurrentWeather.getTemperature() + "");
-        mHumidityValue.setText(mCurrentWeather.getHumidity()+"");
-        mTimeLabel.setText("At " + mCurrentWeather.getFormattedTime() + " it will be");
-        mPreciValue.setText(mCurrentWeather.getPrecipValue() + "%");
-        mSummeryTextView.setText(mCurrentWeather.getSummery());
-        Drawable drawable = ContextCompat.getDrawable(this,mCurrentWeather.getIconId());
+        Current current = mForcast.getCurrent();
+        mTemperatureLabel.setText(current.getTemperature() + "");
+        mHumidityValue.setText(current.getHumidity() + "");
+        mTimeLabel.setText("At " + current.getFormattedTime() + " it will be");
+        mPreciValue.setText(current.getPrecipValue() + "%");
+        mSummeryTextView.setText(current.getSummery());
+        Drawable drawable = ContextCompat.getDrawable(this, current.getIconId());
         mIconImageView.setImageDrawable(drawable);
     }
 
-    private CurrentWeather getCurrentDetsils(String jasonData) throws JSONException {
+    private Forcast forcastDetails(String jasonData) throws JSONException {
+        Forcast forcast = new Forcast();
+        forcast.setCurrent(getCurrentDetsils(jasonData));
+
+        return forcast;
+    }
+
+    private Current getCurrentDetsils(String jasonData) throws JSONException {
         JSONObject forecast = new JSONObject(jasonData);
         String timezone = forecast.getString("timezone");
-        Log.i(TAG, "From JSON" + timezone);
-
         JSONObject currently = forecast.getJSONObject("currently");
-        CurrentWeather currentWeather = new CurrentWeather();
-        currentWeather.setHumidity(currently.getDouble("humidity"));
-        currentWeather.setTime(currently.getLong("time"));
-        currentWeather.setTemperature(currently.getDouble("temperature"));
-        currentWeather.setIcon(currently.getString("icon"));
-        currentWeather.setPrecipValue(currently.getDouble("precipProbability"));
-        currentWeather.setSummery(currently.getString("summary"));
-        currentWeather.setTimeZone(timezone);
-        Log.d(TAG, currentWeather.getFormattedTime());
-        return currentWeather;
+        Current current = new Current();
+        current.setHumidity(currently.getDouble("humidity"));
+        current.setTime(currently.getLong("time"));
+        current.setTemperature(currently.getDouble("temperature"));
+        current.setIcon(currently.getString("icon"));
+        current.setPrecipValue(currently.getDouble("precipProbability"));
+        current.setSummery(currently.getString("summary"));
+        current.setTimeZone(timezone);
+        Log.d(TAG, current.getFormattedTime());
+        return current;
     }
 
     private boolean isNetworkAvailable() {
