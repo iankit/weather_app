@@ -22,6 +22,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +32,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import weatherwallet.heaven.zion.weatherwallet.R;
 import weatherwallet.heaven.zion.weatherwallet.Weather.Current;
+import weatherwallet.heaven.zion.weatherwallet.Weather.Daily;
 import weatherwallet.heaven.zion.weatherwallet.Weather.Forcast;
+import weatherwallet.heaven.zion.weatherwallet.Weather.Hourly;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -177,15 +180,59 @@ public class MainActivity extends AppCompatActivity {
         mIconImageView.setImageDrawable(drawable);
     }
 
-    private Forcast forcastDetails(String jasonData) throws JSONException {
+    private Forcast forcastDetails(String jsonData) throws JSONException {
         Forcast forcast = new Forcast();
-        forcast.setCurrent(getCurrentDetsils(jasonData));
+        forcast.setCurrent(getCurrentDetsils(jsonData));
+        forcast.setHourly(getHourlyDetails(jsonData));
+        forcast.setDaily(getDailyDetails(jsonData));
 
         return forcast;
     }
 
-    private Current getCurrentDetsils(String jasonData) throws JSONException {
-        JSONObject forecast = new JSONObject(jasonData);
+    private Daily[] getDailyDetails(String jsonData) throws JSONException {
+        JSONObject forecast = new JSONObject(jsonData);
+        String timezone = forecast.getString("timezone");
+
+        JSONObject daily = forecast.getJSONObject("daily");
+        JSONArray data = daily.getJSONArray("data");
+
+        Daily[] days = new Daily[data.length()];
+        for (int i = 0; i < data.length(); i++) {
+            JSONObject jsonDaily = data.getJSONObject(i);
+            Daily day = new Daily();
+            day.setSummery(jsonDaily.getString("summary"));
+            day.setIcon(jsonDaily.getString("icon"));
+            day.setTimeZone(timezone);
+            day.setTime(jsonDaily.getLong("time"));
+            day.setTemperature(jsonDaily.getDouble("temperature"));
+
+            days[i] = day;
+        }
+        return days;
+    }
+
+    private Hourly[] getHourlyDetails(String jsonData) throws JSONException {
+        JSONObject forecast = new JSONObject(jsonData);
+        String timezone = forecast.getString("timezone");
+        JSONObject hourly = forecast.getJSONObject("hourly");
+        JSONArray data = hourly.getJSONArray("data");
+        Hourly[] hours = new Hourly[data.length()];
+        for (int i = 0; i < data.length(); i++) {
+            JSONObject jsonHour = data.getJSONObject(i);
+            Hourly hour = new Hourly();
+            hour.setSummery(jsonHour.getString("summary"));
+            hour.setTemperature(jsonHour.getDouble("temperature"));
+            hour.setTime(jsonHour.getLong("time"));
+            hour.setTimeZone(timezone);
+            hour.setIcon(jsonHour.getString("icon"));
+
+            hours[i] = hour;
+        }
+        return hours;
+    }
+
+    private Current getCurrentDetsils(String jsonData) throws JSONException {
+        JSONObject forecast = new JSONObject(jsonData);
         String timezone = forecast.getString("timezone");
         JSONObject currently = forecast.getJSONObject("currently");
         Current current = new Current();
