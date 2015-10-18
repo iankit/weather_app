@@ -1,6 +1,7 @@
 package weatherwallet.heaven.zion.weatherwallet.UI;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -30,6 +31,7 @@ import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import weatherwallet.heaven.zion.weatherwallet.R;
 import weatherwallet.heaven.zion.weatherwallet.Weather.Current;
 import weatherwallet.heaven.zion.weatherwallet.Weather.Daily;
@@ -263,6 +265,15 @@ public class MainActivity extends AppCompatActivity {
         AlertUserMessage dialog = new AlertUserMessage();
         dialog.show(getFragmentManager(), "Error_dialog");
     }
-
+    @OnClick (R.id.dailyButton)
+    public void startDailyActivity(){
+        Intent intent = new Intent(this,DailyForcastActivity.class);
+        startActivity(intent);
+    }
+    @OnClick (R.id.hourlyButton)
+    public void startHourlyActivity(){
+        Intent intent = new Intent(this,HourlyForcast.class);
+        startActivity(intent);
+    }
 
 }

@@ -6,7 +6,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context=".MainActivity"
-                android:background="#fffc970b">
+                android:background="@drawable/bg_gradient">
 
     <TextView
         android:layout_width="wrap_content"
@@ -158,7 +158,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hourly"
-            android:id="@+id/hourly"
+            android:id="@+id/hourlyButton"
             android:layout_weight="1"
             android:background="#40ffffff"
             android:textColor="#ffffffff"/>
@@ -167,10 +167,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Daily"
-            android:id="@+id/daily"
+            android:id="@+id/dailyButton"
             android:layout_weight="1"
             android:textColor="#ffffffff"
-            android:background="#40ffffff"/>
+            android:background="#40ffffff"
+            android:layout_marginLeft="2dp"/>
     </LinearLayout>
 
 </RelativeLayout>

@@ -7,4 +7,6 @@
     <string name="error_message">Something went wrong try again</string>
     <string name="error_ok_button">OK</string>
     <string name="netwotk_unavailable">Network Is Unavailable</string>
+    <string name="title_activity_daily_forcast">DailyForcastActivity</string>
+    <string name="title_activity_hourly">HourlyForcastActivity</string>
 </resources>
