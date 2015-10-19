@@ -1,4 +1,4 @@
-package teamtreehouse.com.stormy.weather;
+package weatherwallet.heaven.zion.weatherwallet.weather;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,7 +54,7 @@ public class Current {
     }
 
     public int getTemperature() {
-        return (int)Math.round(mTemperature);
+        return (int) Math.round(mTemperature);
     }
 
     public void setTemperature(double temperature) {
@@ -71,7 +71,7 @@ public class Current {
 
     public int getPrecipChance() {
         double precipPercentage = mPrecipChance * 100;
-        return (int)Math.round(precipPercentage);
+        return (int) Math.round(precipPercentage);
     }
 
     public void setPrecipChance(double precipChance) {

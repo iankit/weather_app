@@ -1,4 +1,4 @@
-package teamtreehouse.com.stormy.weather;
+package weatherwallet.heaven.zion.weatherwallet.weather;
 
 /**
  * Created by benjakuben on 2/5/15.

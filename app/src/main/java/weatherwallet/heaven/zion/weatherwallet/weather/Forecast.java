@@ -1,6 +1,6 @@
-package teamtreehouse.com.stormy.weather;
+package weatherwallet.heaven.zion.weatherwallet.weather;
 
-import teamtreehouse.com.stormy.R;
+import weatherwallet.heaven.zion.weatherwallet.R;
 
 /**
  * Created by benjakuben on 2/5/15.

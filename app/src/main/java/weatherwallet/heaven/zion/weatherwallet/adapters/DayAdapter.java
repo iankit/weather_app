@@ -1,4 +1,4 @@
-package teamtreehouse.com.stormy.adapters;
+package weatherwallet.heaven.zion.weatherwallet.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import teamtreehouse.com.stormy.R;
-import teamtreehouse.com.stormy.weather.Day;
+import weatherwallet.heaven.zion.weatherwallet.R;
+import weatherwallet.heaven.zion.weatherwallet.weather.Day;
 
 /**
  * Created by benjakuben on 2/6/15.
@@ -64,6 +64,9 @@ public class DayAdapter extends BaseAdapter {
 
         if (position == 0) {
             holder.dayLabel.setText("Today");
+        }
+        else if (position == 1){
+            holder.dayLabel.setText("Tomorrow");
         }
         else {
             holder.dayLabel.setText(day.getDayOfTheWeek());

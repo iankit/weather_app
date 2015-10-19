@@ -1,4 +1,4 @@
-package teamtreehouse.com.stormy.weather;
+package weatherwallet.heaven.zion.weatherwallet.weather;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -34,7 +34,7 @@ public class Day implements Parcelable {
     }
 
     public int getTemperatureMax() {
-        return (int)Math.round(mTemperatureMax);
+        return (int) Math.round(mTemperatureMax);
     }
 
     public void setTemperatureMax(double temperatureMax) {

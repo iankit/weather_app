@@ -1,4 +1,4 @@
-package teamtreehouse.com.stormy.ui;
+package weatherwallet.heaven.zion.weatherwallet.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,11 +29,11 @@ import java.io.IOException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import teamtreehouse.com.stormy.R;
-import teamtreehouse.com.stormy.weather.Current;
-import teamtreehouse.com.stormy.weather.Day;
-import teamtreehouse.com.stormy.weather.Forecast;
-import teamtreehouse.com.stormy.weather.Hour;
+import weatherwallet.heaven.zion.weatherwallet.weather.Forecast;
+import weatherwallet.heaven.zion.weatherwallet.R;
+import weatherwallet.heaven.zion.weatherwallet.weather.Current;
+import weatherwallet.heaven.zion.weatherwallet.weather.Day;
+import weatherwallet.heaven.zion.weatherwallet.weather.Hour;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -43,14 +43,22 @@ public class MainActivity extends ActionBarActivity {
 
     private Forecast mForecast;
 
-    @Bind(R.id.timeLabel) TextView mTimeLabel;
-    @Bind(R.id.temperatureLabel) TextView mTemperatureLabel;
-    @Bind(R.id.humidityValue) TextView mHumidityValue;
-    @Bind(R.id.precipValue) TextView mPrecipValue;
-    @Bind(R.id.summaryLabel) TextView mSummaryLabel;
-    @Bind(R.id.iconImageView) ImageView mIconImageView;
-    @Bind(R.id.refreshImageView) ImageView mRefreshImageView;
-    @Bind(R.id.progressBar) ProgressBar mProgressBar;
+    @Bind(R.id.timeLabel)
+    TextView mTimeLabel;
+    @Bind(R.id.temperatureLabel)
+    TextView mTemperatureLabel;
+    @Bind(R.id.humidityValue)
+    TextView mHumidityValue;
+    @Bind(R.id.precipValue)
+    TextView mPrecipValue;
+    @Bind(R.id.summaryLabel)
+    TextView mSummaryLabel;
+    @Bind(R.id.iconImageView)
+    ImageView mIconImageView;
+    @Bind(R.id.refreshImageView)
+    ImageView mRefreshImageView;
+    @Bind(R.id.progressBar)
+    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

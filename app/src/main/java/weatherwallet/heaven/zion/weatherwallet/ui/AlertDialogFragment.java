@@ -1,4 +1,4 @@
-package teamtreehouse.com.stormy.ui;
+package weatherwallet.heaven.zion.weatherwallet.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,7 +6,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 
-import teamtreehouse.com.stormy.R;
+import weatherwallet.heaven.zion.weatherwallet.R;
 
 /**
  * Created by benjakuben on 12/3/14.

@@ -1,4 +1,4 @@
-package teamtreehouse.com.stormy.ui;
+package weatherwallet.heaven.zion.weatherwallet.ui;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -7,9 +7,9 @@ import android.os.Parcelable;
 
 import java.util.Arrays;
 
-import teamtreehouse.com.stormy.R;
-import teamtreehouse.com.stormy.adapters.DayAdapter;
-import teamtreehouse.com.stormy.weather.Day;
+import weatherwallet.heaven.zion.weatherwallet.R;
+import weatherwallet.heaven.zion.weatherwallet.adapters.DayAdapter;
+import weatherwallet.heaven.zion.weatherwallet.weather.Day;
 
 public class DailyForecastActivity extends ListActivity {
 
