@@ -1,14 +1,14 @@
-package weatherwallet.heaven.zion.weatherwallet.Weather;
+package teamtreehouse.com.stormy.weather;
 
 /**
- * Created by Zion on 16/10/15.
+ * Created by benjakuben on 2/5/15.
  */
-public class Hourly {
+public class Hour {
     private long mTime;
-    private  String mSummery;
+    private String mSummary;
     private double mTemperature;
     private String mIcon;
-    private String mTimeZone;
+    private String mTimezone;
 
     public long getTime() {
         return mTime;
@@ -18,12 +18,12 @@ public class Hourly {
         mTime = time;
     }
 
-    public String getSummery() {
-        return mSummery;
+    public String getSummary() {
+        return mSummary;
     }
 
-    public void setSummery(String summery) {
-        mSummery = summery;
+    public void setSummary(String summary) {
+        mSummary = summary;
     }
 
     public double getTemperature() {
@@ -42,11 +42,11 @@ public class Hourly {
         mIcon = icon;
     }
 
-    public String getTimeZone() {
-        return mTimeZone;
+    public String getTimezone() {
+        return mTimezone;
     }
 
-    public void setTimeZone(String timeZone) {
-        mTimeZone = timeZone;
+    public void setTimezone(String timezone) {
+        mTimezone = timezone;
     }
 }
