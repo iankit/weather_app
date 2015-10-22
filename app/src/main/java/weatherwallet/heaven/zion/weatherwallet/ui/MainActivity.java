@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,17 +29,18 @@ import java.io.IOException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import weatherwallet.heaven.zion.weatherwallet.weather.Forecast;
 import weatherwallet.heaven.zion.weatherwallet.R;
 import weatherwallet.heaven.zion.weatherwallet.weather.Current;
 import weatherwallet.heaven.zion.weatherwallet.weather.Day;
+import weatherwallet.heaven.zion.weatherwallet.weather.Forecast;
 import weatherwallet.heaven.zion.weatherwallet.weather.Hour;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String DAILY_FORECAST = "DAILY_FORECAST";
+    private static final String HOURLY_FORCAST = "HOURLY_FORCAST";
 
     private Forecast mForecast;
 
@@ -274,6 +275,12 @@ public class MainActivity extends ActionBarActivity {
     public void startDailyActivity(View view) {
         Intent intent = new Intent(this, DailyForecastActivity.class);
         intent.putExtra(DAILY_FORECAST, mForecast.getDailyForecast());
+        startActivity(intent);
+    }
+    @OnClick (R.id.hourlyButton)
+    public void startHourlyActivity(View view){
+        Intent intent = new Intent(this,Hourly_Forcast.class);
+        intent.putExtra(HOURLY_FORCAST, mForecast.getDailyForecast());
         startActivity(intent);
     }
 }
