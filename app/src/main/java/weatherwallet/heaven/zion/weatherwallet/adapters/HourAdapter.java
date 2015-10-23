@@ -1,11 +1,13 @@
 package weatherwallet.heaven.zion.weatherwallet.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import weatherwallet.heaven.zion.weatherwallet.R;
 import weatherwallet.heaven.zion.weatherwallet.weather.Hour;
@@ -15,8 +17,10 @@ import weatherwallet.heaven.zion.weatherwallet.weather.Hour;
  */
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder> {
     private Hour[] mHours;
+    private Context mContext;
 
-    public HourAdapter(Hour[] hours){
+    public HourAdapter(Context contexts,Hour[] hours){
+        mContext = contexts;
         mHours = hours;
     }
 
@@ -39,7 +43,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
         return mHours.length;
     }
 
-    public class HourViewHolder extends RecyclerView.ViewHolder {
+    public class HourViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView mTimeLabel;
         public TextView mTemperatureLabel;
@@ -58,6 +62,20 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
             mSummeryLabel.setText(hour.getSummary());
             mTemperatureLabel.setText(hour.getTemperature()+ "");
             mIconImageView.setImageResource(hour.getIconId());
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            String time = mTimeLabel.getText().toString();
+            String temperature= mTemperatureLabel.getText().toString() ;
+            String summery= mSummeryLabel.getText().toString();
+            String message = String.format("At %s it will be %s F and %s",
+                    time,
+                    temperature,
+                    summery);
+
+            Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
 
         }
     }
