@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import weatherwallet.heaven.zion.weatherwallet.R;
 import weatherwallet.heaven.zion.weatherwallet.adapters.DayAdapter;
-import weatherwallet.heaven.zion.weatherwallet.weather.Day;
+import weatherwallet.heaven.zion.weatherwallet .weather.Day;
 
 public class DailyForecastActivity extends ListActivity {
 

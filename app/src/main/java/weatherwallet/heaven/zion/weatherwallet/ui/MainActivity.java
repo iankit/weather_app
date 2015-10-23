@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String DAILY_FORECAST = "DAILY_FORECAST";
-    private static final String HOURLY_FORCAST = "HOURLY_FORCAST";
+    public static final String HOURLY_FORCAST = "HOURLY_FORCAST";
 
     private Forecast mForecast;
 
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick (R.id.hourlyButton)
     public void startHourlyActivity(View view){
         Intent intent = new Intent(this,Hourly_Forcast.class);
-        intent.putExtra(HOURLY_FORCAST, mForecast.getDailyForecast());
+        intent.putExtra(HOURLY_FORCAST, mForecast.getHourlyForecast());
         startActivity(intent);
     }
 }

@@ -94,7 +94,7 @@ public class Day implements Parcelable {
 
     public static final Creator<Day> CREATOR = new Creator<Day>() {
         @Override
-        public Day createFromParcel(Parcel source) {
+        public Day createFromParcel(Parcel source)  {
             return new Day(source);
         }
 
