@@ -4,12 +4,15 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
 import weatherwallet.heaven.zion.weatherwallet.R;
 import weatherwallet.heaven.zion.weatherwallet.adapters.DayAdapter;
-import weatherwallet.heaven.zion.weatherwallet .weather.Day;
+import weatherwallet.heaven.zion.weatherwallet.weather.Day;
 
 public class DailyForecastActivity extends ListActivity {
 
@@ -26,6 +29,21 @@ public class DailyForecastActivity extends ListActivity {
 
         DayAdapter adapter = new DayAdapter(this, mDays);
         setListAdapter(adapter);
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        String dayOfTheWeek = mDays[position].getDayOfTheWeek();
+        String conditions = mDays[position].getSummary();
+        String highTemp = mDays[position].getTemperatureMax()+"";
+        String messages = String.format("On %s the highest temperature will be %s F and it will be a %s",
+                dayOfTheWeek,
+                highTemp,
+                conditions);
+
+        Toast.makeText(this,messages,Toast.LENGTH_LONG).show();
     }
 }
 
